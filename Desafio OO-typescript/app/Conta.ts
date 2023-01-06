@@ -4,9 +4,9 @@ import Debito from "./Debito.js";
 
 export default abstract class Conta {
   protected numeroDaConta: string;
-  private cliente: Cliente;
-  private debitos: Debito[] = [];
-  private creditos: Credito[] = [];
+  protected cliente: Cliente;
+  protected debitos: Debito[] = [];
+  protected creditos: Credito[] = [];
 
   constructor(numeroDaConta: string, cliente: Cliente) {
     this.numeroDaConta = numeroDaConta;

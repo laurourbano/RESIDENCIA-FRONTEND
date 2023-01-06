@@ -34,33 +34,31 @@ export default class ContaPoupanca extends Conta {
     public depositar(valor: number): Date {
         const credito = new Credito(valor, new Date());
         const dataDeposito = credito.getData();
-        const valorDeposito = credito.getValor();
-        const saldoAtual = this.getSaldo();
 
         if (valor > 0) {
             this.adicionaCreditos(credito);
-            this.setSaldo(saldoAtual + valor + saldoAtual * this.rentabilidadeMensal);
-
-            this.mensagemDepositoProcessado(this.getNumeroDaConta(), valorDeposito);
         }
         return dataDeposito;
     }
-    1
+
     //saca
-    public sacar(valor: number) {
+    public sacar(valor: number): Date {
         const debito = new Debito(valor, new Date());
         const dataSaque = debito.getData();
-
-        const valorSaque = debito.getValor();
         const saldoAtual = this.getSaldo();
-        const novoSaldo = saldoAtual - valorSaque;
+
+        let valorSaque = debito.getValor();
 
         if (this.getSaldo() < valor) {
             this.mensagemSemSaldo(valorSaque, saldoAtual);
         } else {
-            this.setSaldo(novoSaldo);
-            this.mensagemSaqueProcessado(this.getNumeroDaConta(), valorSaque);
-            this.adicionaDebitos(debito);
+            while (valor > Credito.creditos[ 0 ].getValor()) {
+                valorSaque -= Credito.creditos[ 0 ].getValor()
+                if (Credito.creditos[ 0 ].getValor() === 0){
+                    Credito.creditos.shift()
+                }
+            }
+            this.adicionaDebitos(debito)
         }
         return dataSaque;
     }
@@ -70,6 +68,17 @@ export default class ContaPoupanca extends Conta {
             elemento.getValor() + elemento.getValor() * this.rentabilidadeMensal;
         });
     }
+
+
+
+
+
+
+
+
+
+
+
 
     public mensagemSemSaldo(valor: number, saldoAtual: number) {
         console.log(`
