@@ -1,5 +1,5 @@
 import Cliente from "./Cliente.js";
-import Conta from "./Conta.js";
+import Conta from "../abstratas/Conta.js";
 import Credito from "./Credito.js";
 import Debito from "./Debito.js";
 

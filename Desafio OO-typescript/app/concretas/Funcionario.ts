@@ -1,6 +1,6 @@
 import Cargo from "./Cargo.js";
-import IUsuario from "./IUsuario.js";
-import Pessoa from "./Pessoa.js";
+import IUsuario from "../interfaces/IUsuario.js";
+import Pessoa from "../abstratas/Pessoa.js";
 
 export default class Funcionario extends Pessoa implements IUsuario {
   private cargo: Cargo;
