@@ -52,15 +52,15 @@ export default class ContaPoupanca extends Conta {
         if (this.getSaldo() < valor) {
             this.mensagemSemSaldo(valorSaque, saldoAtual);
         } else {
+            this.adicionaDebitos(debito)
             while (valor > Credito.creditos[ 0 ].getValor()) {
                 valorSaque -= Credito.creditos[ 0 ].getValor()
                 if (Credito.creditos[ 0 ].getValor() === 0){
                     Credito.creditos.shift()
                 }
             }
-            this.adicionaDebitos(debito)
         }
-        return dataSaque;
+        return Credito.creditos;
     }
 
     public calculaRendimentoMensal(): void {

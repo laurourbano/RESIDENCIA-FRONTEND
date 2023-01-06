@@ -1,5 +1,5 @@
-import Cliente from "../Cliente";
-import ContaPoupanca from "../ContaPoupanca";
+import Cliente from "../concretas/Cliente.js";
+import ContaPoupanca from "../concretas/ContaPoupanca.js";
 
 export function aplicacao_5(): void {
   const cliente1 = new Cliente(

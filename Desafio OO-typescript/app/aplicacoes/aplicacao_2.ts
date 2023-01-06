@@ -1,5 +1,5 @@
-import Cliente from "../Cliente";
-import Endereco from "../Endereco";
+import Cliente from "../concretas/Cliente.js";
+import Endereco from "../concretas/Endereco.js";
 
 export function aplicacao_2(): void {
   const cliente5 = new Cliente(

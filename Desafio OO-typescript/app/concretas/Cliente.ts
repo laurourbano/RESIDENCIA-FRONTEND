@@ -1,7 +1,7 @@
-import Conta from "./Conta.js";
+import Conta from "../abstratas/Conta.js";
 import Endereco from "./Endereco.js";
-import IUsuario from "./IUsuario.js";
-import Pessoa from "./Pessoa.js";
+import IUsuario from "../interfaces/IUsuario.js";
+import Pessoa from "../abstratas/Pessoa.js";
 export default class Cliente extends Pessoa implements IUsuario {
   private enderecos: Endereco[] = [];
   private contas: Conta[] = [];

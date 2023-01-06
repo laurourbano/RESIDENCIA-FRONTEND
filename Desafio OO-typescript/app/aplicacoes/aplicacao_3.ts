@@ -1,5 +1,5 @@
-import Cliente from "../Cliente";
-import ContaCorrente from "../ContaCorrente";
+import Cliente from "../concretas/Cliente.js";
+import ContaCorrente from "../concretas/ContaCorrente.js";
 
 export function aplicacao_3(): void {
   const cliente1 = new Cliente(

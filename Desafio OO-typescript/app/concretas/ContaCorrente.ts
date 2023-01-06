@@ -1,5 +1,5 @@
 import Cliente from "./Cliente.js";
-import Conta from "./Conta.js";
+import Conta from "../abstratas/Conta.js";
 import ContaPoupanca from "./ContaPoupanca.js";
 import Credito from "./Credito.js";
 import Debito from "./Debito.js";
@@ -126,7 +126,7 @@ SALDO
         const saldoAtual = this.getSaldo();
         const valorTransferencia = valor;
         const contaDestino = conta.getNumeroDaConta();
-        const clienteDestino = conta.getCliente().getNome();
+        const clienteDestino = Conta.conta.getCliente().getNome();
 
         const limite = this.getLimite();
         const novoSaldo = saldoAtual - valorTransferencia;
@@ -135,7 +135,7 @@ SALDO
         if (disponivel < valorTransferencia) {
             this.mensagemSemSaldoTransferencia(valorTransferencia, saldoAtual);
         } else {
-            conta.adicionaCreditos(credito);
+            Conta.conta.adicionaCreditos(credito);
             conta.setSaldo(conta.getSaldo() + valorTransferencia);
 
             this.adicionaDebitos(debito);

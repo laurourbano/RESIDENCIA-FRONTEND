@@ -1,12 +1,13 @@
-import Cliente from "./Cliente.js";
-import Credito from "./Credito.js";
-import Debito from "./Debito.js";
+import Cliente from "../concretas/Cliente.js";
+import Credito from "../concretas/Credito.js";
+import Debito from "../concretas/Debito.js";
 
 export default abstract class Conta {
   protected numeroDaConta: string;
   protected cliente: Cliente;
   protected debitos: Debito[] = [];
   protected creditos: Credito[] = [];
+    static conta: any;
 
   constructor(numeroDaConta: string, cliente: Cliente) {
     this.numeroDaConta = numeroDaConta;

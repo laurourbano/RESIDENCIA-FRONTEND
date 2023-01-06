@@ -1,5 +1,5 @@
-import Cargo from "../Cargo";
-import Funcionario from "../Funcionario";
+import Cargo from "../concretas/Cargo";
+import Funcionario from "../concretas/Funcionario";
 
 export function aplicacao_1(): void {
   const atendente = new Cargo("Atendente");
