@@ -9,10 +9,15 @@ export function aplicacao_3(): void {
     true
   );
   const conta1 = new ContaCorrente("001", cliente1, 1_000);
-
+  console.log(`
+   --- I${ aplicacao_3.name } --- 
+   `);
   conta1.depositar(100);
   conta1.depositar(100);
   conta1.depositar(100);
   conta1.sacar(50);
   conta1.mensagemSaldo();
+  console.log(`
+   --- F${ aplicacao_3.name } --- 
+   `);
 }

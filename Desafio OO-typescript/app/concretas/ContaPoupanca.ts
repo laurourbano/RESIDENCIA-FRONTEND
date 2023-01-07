@@ -1,5 +1,5 @@
-import Cliente from "./Cliente.js";
 import Conta from "../abstratas/Conta.js";
+import Cliente from "./Cliente.js";
 import Credito from "./Credito.js";
 import Debito from "./Debito.js";
 
@@ -34,9 +34,12 @@ export default class ContaPoupanca extends Conta {
     public depositar(valor: number): Date {
         const credito = new Credito(valor, new Date());
         const dataDeposito = credito.getData();
+        const saldoAtual = this.getSaldo();
 
         if (valor > 0) {
             this.adicionaCreditos(credito);
+            this.setSaldo(credito.getValor() + saldoAtual);
+            this.mensagemDepositoProcessado(this.numeroDaConta, valor)
         }
         return dataDeposito;
     }
@@ -46,39 +49,29 @@ export default class ContaPoupanca extends Conta {
         const debito = new Debito(valor, new Date());
         const dataSaque = debito.getData();
         const saldoAtual = this.getSaldo();
-
         let valorSaque = debito.getValor();
 
         if (this.getSaldo() < valor) {
             this.mensagemSemSaldo(valorSaque, saldoAtual);
         } else {
-            this.adicionaDebitos(debito)
-            while (valor > Credito.creditos[ 0 ].getValor()) {
-                valorSaque -= Credito.creditos[ 0 ].getValor()
-                if (Credito.creditos[ 0 ].getValor() === 0){
-                    Credito.creditos.shift()
+            this.adicionaDebitos(debito);
+            this.setSaldo(saldoAtual - debito.getValor());
+            this.mensagemSaqueProcessado(this.numeroDaConta, valor);
+            while (valor > this.creditos[ 0 ].getValor()) {
+                valorSaque -= this.creditos[ 0 ].getValor();
+                if (this.creditos[ 0 ].getValor() === 0) {
+                    this.creditos.shift();
                 }
             }
         }
-        return Credito.creditos;
+        return dataSaque;
     }
 
-    public calculaRendimentoMensal(): void {
-        Credito.creditos.forEach((elemento: Credito) => {
-            elemento.getValor() + elemento.getValor() * this.rentabilidadeMensal;
-        });
+    public calculaRendimentoMensal() {
+        
+        this.getSaldo()
+        return this.getSaldo()
     }
-
-
-
-
-
-
-
-
-
-
-
 
     public mensagemSemSaldo(valor: number, saldoAtual: number) {
         console.log(`
@@ -118,7 +111,7 @@ SALDO
         Conta Poupança: ${ this.getNumeroDaConta() }
         Nome: ${ this.getCliente().getNome() }
         -----------------------------
-        Saldo atual de: R$ ${ this.getSaldo().toFixed(2) }
+        Saldo atual de: R$ ${ this.calculaRendimentoMensal() }
         `);
     }
 

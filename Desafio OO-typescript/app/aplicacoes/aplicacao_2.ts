@@ -38,6 +38,13 @@ export function aplicacao_2(): void {
   cliente5.addEndereco(endereco3);
 
   console.log(`
+   --- I${ aplicacao_2.name } --- 
+   `);
+
+  console.log(`
 ${ cliente5.listarEnderecos() }
 `);
+  console.log(`
+   --- F${ aplicacao_2.name } --- 
+   `);
 }

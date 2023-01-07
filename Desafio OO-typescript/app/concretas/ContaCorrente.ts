@@ -1,5 +1,5 @@
-import Cliente from "./Cliente.js";
 import Conta from "../abstratas/Conta.js";
+import Cliente from "./Cliente.js";
 import ContaPoupanca from "./ContaPoupanca.js";
 import Credito from "./Credito.js";
 import Debito from "./Debito.js";
@@ -34,19 +34,17 @@ export default class ContaCorrente extends Conta {
     public mensagemSemSaldoTransferencia(
         valorTransferencia: number,
         saldoAtual: number
-    ) {
-        console.log(`
+    ): string {
+        return `
 ---------------------------------------
-Não foi possível realizar a operação no valor de R$ ${ valorTransferencia.toFixed(
-            2
-        ) }, pois seu saldo atual é de R$ ${ saldoAtual.toFixed(2) }
-    `);
+Não foi possível realizar a operação no valor de R$ ${ valorTransferencia.toFixed(2) }, pois seu saldo atual é de R$ ${ saldoAtual.toFixed(2) }
+    `;
     }
 
-    public mensagemSemSaldoSaque(valorSaque: number, saldoAtual: number) {
+    public mensagemSemSaldoSaque(valorSaque: number, saldoAtual: number): string {
         let disponivel =
             parseInt(saldoAtual.toFixed(2)) + parseInt(this.limite.toFixed(2));
-        console.log(`
+        return `
 ---------------------------------------
 Não foi possível realizar a operação no valor de R$ ${ valorSaque.toFixed(
             2
@@ -55,15 +53,15 @@ Não foi possível realizar a operação no valor de R$ ${ valorSaque.toFixed(
         ) } e seu limite é de R$ ${ this.limite.toFixed(
             2
         ) }, sendo o total disponível R$ ${ disponivel.toFixed(2) }
-    `);
+    `;
     }
 
     public mensagemTransferenciaProcessada(
         contaDestino: string,
         clienteDestino: string,
         valorTransferencia: number
-    ) {
-        console.log(`
+    ): string {
+        return `
 ---------------------------------------
 TRANFERENCIA EFETUADA COM SUCESSO.
         Conta Corrente: ${ this.getNumeroDaConta() }
@@ -73,38 +71,38 @@ TRANFERENCIA EFETUADA COM SUCESSO.
         -----------------------------
         Conta de destino: ${ contaDestino }
         Nome: ${ clienteDestino }
-        `);
+        `;
     }
 
     public mensagemDepositoProcessado(
         numeroDaConta: string,
         valorDeposito: number
-    ) {
-        console.log(`
+    ): string {
+        return `
 --------------------------------------- 
 DEPÓSITO PROCESSADO
         Conta Corrente: ${ numeroDaConta }
         Nome: ${ this.getCliente().getNome() }
         ----------------------------
         Depósito de: R$ ${ valorDeposito.toFixed(2) }
-        `);
+        `;
     }
 
-    public mensagemSaqueProcessado(numeroDaConta: string, valorSaque: number) {
-        console.log(`
+    public mensagemSaqueProcessado(numeroDaConta: string, valorSaque: number): string {
+        return `
 --------------------------------------- 
 SAQUE PROCESSADO
         Conta Corrente: ${ numeroDaConta }
         Nome: ${ this.getCliente().getNome() }
         -----------------------------
         Valor sacado: ${ valorSaque.toFixed(2) }
-        `);
+        `;
     }
     public mensagemSaldo() {
         let disponivel =
             parseInt(this.getSaldo().toFixed(2)) +
             parseInt(this.getLimite().toFixed(2));
-        console.log(`
+        return `
 --------------------------------------- 
 SALDO
         Conta Corrente: ${ this.getNumeroDaConta() }
@@ -114,7 +112,7 @@ SALDO
         -----------------------------
         Limite: R$ ${ this.getLimite().toFixed(2) }
         Total disponível: R$ ${ disponivel.toFixed(2) }
-        `);
+        `;
     }
 
     //transferir
@@ -126,7 +124,7 @@ SALDO
         const saldoAtual = this.getSaldo();
         const valorTransferencia = valor;
         const contaDestino = conta.getNumeroDaConta();
-        const clienteDestino = Conta.conta.getCliente().getNome();
+        const clienteDestino = conta.getCliente().getNome();
 
         const limite = this.getLimite();
         const novoSaldo = saldoAtual - valorTransferencia;
@@ -135,7 +133,7 @@ SALDO
         if (disponivel < valorTransferencia) {
             this.mensagemSemSaldoTransferencia(valorTransferencia, saldoAtual);
         } else {
-            Conta.conta.adicionaCreditos(credito);
+            conta.adicionaCreditos(credito);
             conta.setSaldo(conta.getSaldo() + valorTransferencia);
 
             this.adicionaDebitos(debito);
@@ -144,12 +142,6 @@ SALDO
             if (novoSaldo < 0 && disponivel > 0) {
                 disponivel = this.limite + novoSaldo;
             }
-
-            this.mensagemTransferenciaProcessada(
-                contaDestino,
-                clienteDestino,
-                valorTransferencia
-            );
         }
     }
 

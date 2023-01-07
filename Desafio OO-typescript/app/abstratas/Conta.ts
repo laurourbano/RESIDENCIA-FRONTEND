@@ -7,7 +7,6 @@ export default abstract class Conta {
   protected cliente: Cliente;
   protected debitos: Debito[] = [];
   protected creditos: Credito[] = [];
-    static conta: any;
 
   constructor(numeroDaConta: string, cliente: Cliente) {
     this.numeroDaConta = numeroDaConta;

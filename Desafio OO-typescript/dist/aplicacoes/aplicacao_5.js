@@ -4,11 +4,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.aplicacao_5 = void 0;
-const Cliente_1 = __importDefault(require("../Cliente"));
-const ContaPoupanca_1 = __importDefault(require("../ContaPoupanca"));
+const Cliente_js_1 = __importDefault(require("../concretas/Cliente.js"));
+const ContaPoupanca_js_1 = __importDefault(require("../concretas/ContaPoupanca.js"));
 function aplicacao_5() {
-    const cliente1 = new Cliente_1.default("222.000.000-01", "Lauro Otávio", "(41)97654-9999", true);
-    const conta5 = new ContaPoupanca_1.default("005", cliente1);
+    const cliente1 = new Cliente_js_1.default("222.000.000-01", "Lauro Otávio", "(41)97654-9999", true);
+    const conta5 = new ContaPoupanca_js_1.default("005", cliente1);
+    console.log(`
+   --- I${aplicacao_5.name} --- 
+   `);
     conta5.depositar(200).setFullYear(2022, 0, 1);
     conta5.mensagemSaldo();
     conta5.depositar(200).setFullYear(2022, 1, 1);
@@ -37,6 +40,10 @@ function aplicacao_5() {
     conta5.mensagemSaldo();
     conta5.depositar(200).setFullYear(2022, 11, 1);
     conta5.mensagemSaldo();
+    console.log(`
+   --- F${aplicacao_5.name} --- 
+   `);
+    conta5.calculaRendimentoMensal();
 }
 exports.aplicacao_5 = aplicacao_5;
 //# sourceMappingURL=aplicacao_5.js.map

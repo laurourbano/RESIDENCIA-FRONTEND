@@ -18,7 +18,9 @@ export function aplicacao_1(): void {
     gerente,
     5000
   );
-
+  console.log(`
+   --- I${ aplicacao_1.name } --- 
+   `);
   console.log(`
 Nome: ${ funcionario1.getNome() }
 Cargo: ${ funcionario1.getCargo().getNome() }
@@ -30,4 +32,8 @@ Nome: ${ funcionario2.getNome() }
 Cargo: ${ funcionario2.getCargo().getNome() }
 Salário: ${ funcionario2.getSalario().toFixed(2) }
 `);
+  console.log(`
+   --- F${ aplicacao_1.name } --- 
+   `);
+
 }

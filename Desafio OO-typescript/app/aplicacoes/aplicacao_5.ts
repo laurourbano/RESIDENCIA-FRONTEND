@@ -10,6 +10,9 @@ export function aplicacao_5(): void {
   );
   const conta5 = new ContaPoupanca("005", cliente1);
 
+  console.log(`
+   --- I${ aplicacao_5.name } --- 
+   `);
   conta5.depositar(200).setFullYear(2022, 0, 1);
   conta5.mensagemSaldo();
   conta5.depositar(200).setFullYear(2022, 1, 1);
@@ -38,4 +41,9 @@ export function aplicacao_5(): void {
   conta5.mensagemSaldo();
   conta5.depositar(200).setFullYear(2022, 11, 1);
   conta5.mensagemSaldo();
+  console.log(`
+   --- F${ aplicacao_5.name } --- 
+   `);
+
+  conta5.calculaRendimentoMensal()
 }
