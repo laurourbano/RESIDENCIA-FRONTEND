@@ -12,11 +12,13 @@ export function aplicacao_3(): void {
   console.log(`
    --- I${ aplicacao_3.name } --- 
    `);
+
   conta1.depositar(100);
   conta1.depositar(100);
   conta1.depositar(100);
   conta1.sacar(50);
   conta1.mensagemSaldo();
+
   console.log(`
    --- F${ aplicacao_3.name } --- 
    `);

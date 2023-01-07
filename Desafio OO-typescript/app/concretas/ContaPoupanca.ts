@@ -68,9 +68,10 @@ export default class ContaPoupanca extends Conta {
     }
 
     public calculaRendimentoMensal() {
-        
-        this.getSaldo()
-        return this.getSaldo()
+        this.creditos.forEach((elemento) => {
+            console.log(elemento)
+            return elemento
+        })
     }
 
     public mensagemSemSaldo(valor: number, saldoAtual: number) {
@@ -88,7 +89,7 @@ SAQUE PROCESSADO
         Conta Poupança: ${ numeroDaConta }
         Nome: ${ this.getCliente().getNome() }
         -----------------------------
-        Valor sacado: ${ valorSaque.toFixed(2) }
+        Valor sacado: R$ ${ valorSaque.toFixed(2) }
         `);
     }
     public mensagemDepositoProcessado(
@@ -105,6 +106,7 @@ DEPÓSITO PROCESSADO
         `);
     }
     public mensagemSaldo() {
+
         console.log(`
 ---------------------------------------
 SALDO

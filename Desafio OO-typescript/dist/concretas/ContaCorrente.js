@@ -30,6 +30,58 @@ class ContaCorrente extends Conta_js_1.default {
     setSaldo(saldo) {
         this.saldo = saldo;
     }
+    transferir(conta, valor) {
+        const debito = new Debito_js_1.default(valor, new Date());
+        const credito = new Credito_js_1.default(valor, new Date());
+        const saldoAtual = this.getSaldo();
+        const valorTransferencia = valor;
+        const contaDestino = conta.getNumeroDaConta();
+        const clienteDestino = conta.getCliente().getNome();
+        const limite = this.getLimite();
+        const novoSaldo = saldoAtual - valorTransferencia;
+        let disponivel = saldoAtual + limite;
+        if (disponivel < valorTransferencia) {
+            console.log(this.mensagemSemSaldoTransferencia(valorTransferencia, saldoAtual));
+        }
+        else {
+            conta.adicionaCreditos(credito);
+            conta.setSaldo(conta.getSaldo() + valorTransferencia);
+            this.adicionaDebitos(debito);
+            this.setSaldo(novoSaldo);
+            if (novoSaldo < 0 && disponivel > 0) {
+                disponivel = this.limite + novoSaldo;
+            }
+            console.log(this.mensagemTransferenciaProcessada(contaDestino, clienteDestino, valorTransferencia));
+        }
+    }
+    depositar(valor) {
+        const credito = new Credito_js_1.default(valor, new Date());
+        const conta = this.getNumeroDaConta();
+        const valorDeposito = credito.getValor();
+        const saldoAtual = this.getSaldo();
+        const novoSaldo = saldoAtual + valorDeposito;
+        this.setSaldo(novoSaldo);
+        this.adicionaCreditos(credito);
+        console.log(this.mensagemDepositoProcessado(conta, valorDeposito));
+    }
+    sacar(valor) {
+        const debito = new Debito_js_1.default(valor, new Date());
+        const valorSaque = debito.getValor();
+        const saldoAtual = this.getSaldo();
+        let limite = this.getLimite();
+        const novoSaldo = saldoAtual - valorSaque;
+        const conta = this.getNumeroDaConta();
+        let disponivel = saldoAtual + limite;
+        if (disponivel < debito.valor) {
+            this.mensagemSemSaldoSaque(valorSaque, saldoAtual);
+        }
+        else {
+            this.adicionaDebitos(debito);
+            this.setSaldo(novoSaldo);
+            disponivel = limite + novoSaldo;
+            console.log(this.mensagemSaqueProcessado(conta, valorSaque));
+        }
+    }
     mensagemSemSaldoTransferencia(valorTransferencia, saldoAtual) {
         return `
 ---------------------------------------
@@ -79,7 +131,7 @@ SAQUE PROCESSADO
     mensagemSaldo() {
         let disponivel = parseInt(this.getSaldo().toFixed(2)) +
             parseInt(this.getLimite().toFixed(2));
-        return `
+        console.log(`
 --------------------------------------- 
 SALDO
         Conta Corrente: ${this.getNumeroDaConta()}
@@ -89,58 +141,7 @@ SALDO
         -----------------------------
         Limite: R$ ${this.getLimite().toFixed(2)}
         Total disponível: R$ ${disponivel.toFixed(2)}
-        `;
-    }
-    transferir(conta, valor) {
-        const debito = new Debito_js_1.default(valor, new Date());
-        const credito = new Credito_js_1.default(valor, new Date());
-        const saldoAtual = this.getSaldo();
-        const valorTransferencia = valor;
-        const contaDestino = conta.getNumeroDaConta();
-        const clienteDestino = conta.getCliente().getNome();
-        const limite = this.getLimite();
-        const novoSaldo = saldoAtual - valorTransferencia;
-        let disponivel = saldoAtual + limite;
-        if (disponivel < valorTransferencia) {
-            this.mensagemSemSaldoTransferencia(valorTransferencia, saldoAtual);
-        }
-        else {
-            conta.adicionaCreditos(credito);
-            conta.setSaldo(conta.getSaldo() + valorTransferencia);
-            this.adicionaDebitos(debito);
-            this.setSaldo(novoSaldo);
-            if (novoSaldo < 0 && disponivel > 0) {
-                disponivel = this.limite + novoSaldo;
-            }
-        }
-    }
-    depositar(valor) {
-        const credito = new Credito_js_1.default(valor, new Date());
-        const conta = this.getNumeroDaConta();
-        const valorDeposito = credito.getValor();
-        const saldoAtual = this.getSaldo();
-        const novoSaldo = saldoAtual + valorDeposito;
-        this.setSaldo(novoSaldo);
-        this.adicionaCreditos(credito);
-        this.mensagemDepositoProcessado(conta, valorDeposito);
-    }
-    sacar(valor) {
-        const debito = new Debito_js_1.default(valor, new Date());
-        const valorSaque = debito.getValor();
-        const saldoAtual = this.getSaldo();
-        let limite = this.getLimite();
-        const novoSaldo = saldoAtual - valorSaque;
-        const conta = this.getNumeroDaConta();
-        let disponivel = saldoAtual + limite;
-        if (disponivel < debito.valor) {
-            this.mensagemSemSaldoSaque(valorSaque, saldoAtual);
-        }
-        else {
-            this.adicionaDebitos(debito);
-            this.setSaldo(novoSaldo);
-            disponivel = limite + novoSaldo;
-            this.mensagemSaqueProcessado(conta, valorSaque);
-        }
+        `);
     }
 }
 exports.default = ContaCorrente;

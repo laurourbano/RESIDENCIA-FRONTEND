@@ -63,8 +63,10 @@ class ContaPoupanca extends Conta_js_1.default {
         return dataSaque;
     }
     calculaRendimentoMensal() {
-        this.getSaldo();
-        return this.getSaldo();
+        this.creditos.forEach((elemento) => {
+            console.log(elemento);
+            return elemento;
+        });
     }
     mensagemSemSaldo(valor, saldoAtual) {
         console.log(`
@@ -80,7 +82,7 @@ SAQUE PROCESSADO
         Conta Poupança: ${numeroDaConta}
         Nome: ${this.getCliente().getNome()}
         -----------------------------
-        Valor sacado: ${valorSaque.toFixed(2)}
+        Valor sacado: R$ ${valorSaque.toFixed(2)}
         `);
     }
     mensagemDepositoProcessado(numeroDaConta, valorDeposito) {
