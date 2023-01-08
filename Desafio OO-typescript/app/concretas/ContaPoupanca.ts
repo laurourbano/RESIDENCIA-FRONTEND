@@ -70,7 +70,7 @@ export default class ContaPoupanca extends Conta {
     public calculaRendimentoMensal() {
         this.creditos.forEach((elemento) => {
             console.log(elemento)
-            return elemento
+            return Number(elemento)
         })
     }
 
@@ -113,7 +113,7 @@ SALDO
         Conta Poupança: ${ this.getNumeroDaConta() }
         Nome: ${ this.getCliente().getNome() }
         -----------------------------
-        Saldo atual de: R$ ${ this.calculaRendimentoMensal() }
+        Saldo atual de: R$ ${ this.getSaldo() }
         `);
     }
 
