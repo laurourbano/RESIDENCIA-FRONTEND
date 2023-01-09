@@ -65,7 +65,8 @@ class ContaPoupanca extends Conta_js_1.default {
     calculaRendimentoMensal() {
         this.creditos.forEach((elemento) => {
             console.log(elemento);
-            return Number(elemento);
+            let rendimento = this.rentabilidadeMensal * Number(elemento);
+            return rendimento;
         });
     }
     mensagemSemSaldo(valor, saldoAtual) {

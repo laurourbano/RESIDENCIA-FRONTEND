@@ -38,7 +38,7 @@ export default class ContaPoupanca extends Conta {
 
         if (valor > 0) {
             this.adicionaCreditos(credito);
-            this.setSaldo(credito.getValor() + saldoAtual);
+            this.setSaldo(credito.getValor() + saldoAtual + );
             this.mensagemDepositoProcessado(this.numeroDaConta, valor)
         }
         return dataDeposito;
@@ -70,7 +70,8 @@ export default class ContaPoupanca extends Conta {
     public calculaRendimentoMensal() {
         this.creditos.forEach((elemento) => {
             console.log(elemento)
-            return Number(elemento)
+            let rendimento = this.rentabilidadeMensal * Number(elemento)
+            return rendimento
         })
     }
 
